@@ -21,6 +21,7 @@ var makeRequireStatement = function(name, identifier){
  * @returns {string}
  */
 var addImportStatements = function(content, amdNode){
+  if (!amdNode.node || !amdNode.node.range) { return content; }
   var defineEnd = amdNode.node.range[1];
   var functionNode = amdNode.getFunctionNode();
   var functionBlockStart = functionNode.body.range[0] + 1;
@@ -47,13 +48,9 @@ var addRequireStatement = function(content, amdNode){
   var argumentsStart = amdNode.getArrayNode().range[0];
   var functionNode = amdNode.getFunctionNode();
   var functionBlockStart = functionNode.body.range[0];
-  var defineStart = amdNode.node.range[0];
 
-  var defineString = content.substring(defineStart, argumentsStart);
-  var newDefine = 'function(require, exports, module)';
-
-  var blockContent = content.substring(functionBlockStart, content.length);
-  return defineString + newDefine + blockContent;
+  var blockContent = content.substring(functionBlockStart+1, content.length-3);
+  return blockContent;
 };
 
 /**

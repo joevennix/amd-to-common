@@ -63,14 +63,11 @@ var AMDToCommon = (function(){
       return content;
     }
 
-    var withRequire = requireConverter(content, validNode);
+    var withExport = exportConverter(content, validNode);
 
     // Do a second pass of the code now that we've rewritten it
-    var secondPassNode = esprima.parse(withRequire, this.parseOptions);
-    var withExport = exportConverter(withRequire, secondPassNode);
-
-    var thirdPassNode = esprima.parse(withExport, this.parseOptions);
-    return strictConverter(withExport, thirdPassNode);
+    var secondPassNode = esprima.parse(withExport, this.parseOptions);
+    return requireConverter(withExport, new AMDNode(secondPassNode));
   };
 
   return _convert;

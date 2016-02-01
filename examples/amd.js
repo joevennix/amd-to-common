@@ -1,9 +1,8 @@
-define([
-  'underscore'
-], function(_){
+
+  var _ = require('underscore');
   'use strict';
 
-  return {
+  module.exports = {
 
     /**
      * A little utility to invoke a function, if it exists
@@ -21,4 +20,3 @@ define([
     }
   };
 
-});

@@ -66,17 +66,17 @@ AMDNode.prototype.getDependencyMap = function(){
  * @returns {String[]} A list of dependency strings
  */
 AMDNode.prototype.getArrayDependencies = function(){
-  return _.map(this.node.expression.arguments[0].elements, function(element){
+  return _.map(this.node.body[0].expression.arguments[0].elements, function(element){
     return element.value;
   });
 };
 
 AMDNode.prototype.getArrayNode = function(){
-  return this.node.expression.arguments[0];
+  return this.node.body[0].expression.arguments[0];
 };
 
 AMDNode.prototype.getFunctionNode = function(){
-  return this.node.expression.arguments[1];
+  return this.node.body[0].expression.arguments[1];
 };
 
 /**
@@ -85,7 +85,7 @@ AMDNode.prototype.getFunctionNode = function(){
  * @returns {String[]} A list of dependency strings
  */
 AMDNode.prototype.getDependencyIdentifiers = function(){
-  return _.map(this.node.expression.arguments[1].params, function(param){
+  return _.map(this.node.body[0].expression.arguments[1].params, function(param){
     return param.name;
   });
 };
